@@ -37,6 +37,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public List<Entity> entities;
 	public Spritesheet spritesheet;	
 	
+	private Player player;
+	
 	public Game () {
 		addKeyListener(this);
 		//player = sheet.getSprite(0, 0, 32, 32);
@@ -46,7 +48,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		
-		Player player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
+		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
 	}
 	
@@ -142,7 +144,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT ||
 				e.getKeyCode() == KeyEvent.VK_D) {
-			
+			player.right = true;
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT || 
 				e.getKeyCode() == KeyEvent.VK_A) {
 			
