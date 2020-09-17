@@ -21,10 +21,10 @@ public class Player extends Entity{
 			x-=speed;
 		
 		}if (up) {
-			y+=speed;
+			y-=speed;
 		
 		}else if (down) {
-			y-=speed;
+			y+=speed;
 	}
 		
 	}

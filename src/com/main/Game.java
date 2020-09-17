@@ -115,8 +115,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
-		double delta = 0;
 		int frames = 0;
+		double delta = 0;
 		double timer = System.currentTimeMillis();
 		while (isRunning) {
 			long now = System.nanoTime();
@@ -134,6 +134,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 				System.out.println("FPS:" + frames);
 				frames = 0;
 				timer += 1000;
+				System.out.println(System.currentTimeMillis());
 				
 			}
 			
