@@ -33,9 +33,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	private Thread thread;
 	
 	private BufferedImage image;
-	private BufferedImage[] player;
-	
-	private int x = 0;
 	
 	public List<Entity> entities;
 	public Spritesheet spritesheet;	
