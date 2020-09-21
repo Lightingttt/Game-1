@@ -37,7 +37,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	private int x = 0;
 	
 	public List<Entity> entities;
-	public Spritesheet spritesheet;	
+	public static Spritesheet spritesheet;	
+	
+	public Player player;
 	
 	public Game () {
 		addKeyListener(this);
@@ -48,7 +50,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		
-		Player player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
+		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
 	}
 	
@@ -144,23 +146,39 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT ||
 				e.getKeyCode() == KeyEvent.VK_D) {
-			
+			player.right = true;
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT || 
 				e.getKeyCode() == KeyEvent.VK_A) {
-			
+			player.left = true;
 		}
 		if(e.getKeyCode() == KeyEvent.VK_UP || 
 				e.getKeyCode() == KeyEvent.VK_W){
+			player.up = true;
 			
 		}else if(e.getKeyCode() == KeyEvent.VK_DOWN || 
 				e.getKeyCode() == KeyEvent.VK_S) {
+			player.down = true;
 			
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT ||
+				e.getKeyCode() == KeyEvent.VK_D) {
+			player.right = false;
+		}else if(e.getKeyCode() == KeyEvent.VK_LEFT || 
+				e.getKeyCode() == KeyEvent.VK_A) {
+			player.left = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_UP || 
+				e.getKeyCode() == KeyEvent.VK_W){
+			player.up = false;
+			
+		}else if(e.getKeyCode() == KeyEvent.VK_DOWN || 
+				e.getKeyCode() == KeyEvent.VK_S) {
+			player.down = false;
+		}
 		
 	}
 
