@@ -14,8 +14,8 @@ public class Player extends Entity{
 	public int right_dir = 0, left_dir = 1;
 	public int dir = right_dir;
 	
-	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 1 /*,i = 0, iM = 5*/;
-	private BufferedImage[] rightPlayer, leftPlayer/*, standLeftPlayer, standRightPlayer*/;
+	private int frames = 0, maxFrames = 20, index = 0, maxIndex = 1 ,i = 0, iM = 4;
+	private BufferedImage[] rightPlayer, leftPlayer, standLeftPlayer, standRightPlayer;
 	
 	public boolean moving = false;
 
@@ -24,8 +24,8 @@ public class Player extends Entity{
 		
 		rightPlayer = new BufferedImage[2];
 		leftPlayer = new BufferedImage[2];
-		/*standLeftPlayer = new BufferedImage[4];
-		standRightPlayer = new BufferedImage[4];*/
+		standLeftPlayer = new BufferedImage[4];
+		standRightPlayer = new BufferedImage[4];
 		
 		for (int i = 0; i < 2; i++) {
 			rightPlayer [i] = Game.spritesheet.getSprite((i*64), 64, 64, 64);
@@ -33,15 +33,16 @@ public class Player extends Entity{
 		for (int i = 0; i < 2; i++) {
 			leftPlayer [i] = Game.spritesheet.getSprite(128 + (i*64), 64, 64, 64);
 		}
-		/*for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 			standRightPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
 		for (int i = 0; i < 4; i++) {
 			standLeftPlayer [i] = Game.spritesheet.getSprite(256 + (i*64), 0, 64, 64);
-		}*/
+		}
 	}
 	
 	public void tick() {
+		//System.out.println(moving);
 		moving = false;
 		if (right) {
 			moving = true;
@@ -71,27 +72,27 @@ public class Player extends Entity{
 				}
 				
 			}
-		}/*else if (moving = false) {
+		}else {
 			frames ++;
-			if (frames == 5) {
+			if (frames == maxFrames) {
 				frames = 0;
 				i++;
-				if(i > iM) {
+				if(i > 3) {
 					i = 0;
 				}
-				
 			}
-		}*/
+		}
 		
 	}
 	public void render(Graphics g) {
-		if (dir == right_dir) {
+		if (moving && dir == right_dir) {
 			g.drawImage(rightPlayer[index], this.getX(), this.getY(), null);
-		}else if (dir == left_dir) {
+		}else if (moving && dir == left_dir) {
 			g.drawImage(leftPlayer[index], this.getX(), this.getY(), null);
-		}/*else if (moving == false && dir == right_dir) {
+		}else if (moving == false && dir == right_dir) {
 			g.drawImage(standRightPlayer[i], this.getX(), this.getY(), null);
-		}*/
+		}else if (moving == false && dir == left_dir) {
+			g.drawImage(standLeftPlayer[i], this.getX(), this.getY(), null);
+		}
 	}
-
 }
