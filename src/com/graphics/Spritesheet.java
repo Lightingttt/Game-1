@@ -11,7 +11,7 @@ public class Spritesheet {
 	
 	public Spritesheet (String path) {
 		try {
-			spritesheet = ImageIO.read(getClass().getResource(path));
+			spritesheet = ImageIO.read(getClass().getResource(path)); //Le a imagem do caminho indicado
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -19,7 +19,7 @@ public class Spritesheet {
 	}
 	
 	public BufferedImage getSprite (int x, int y, int width,int height) {
-		return spritesheet.getSubimage(x, y, width, height);
+		return spritesheet.getSubimage(x, y, width, height); //Retorna spritesheet selecionado
 
 	}
 }
