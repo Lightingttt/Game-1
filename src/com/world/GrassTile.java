@@ -1,5 +1,5 @@
 package com.world;
 
-public class GrassTile {
+public class GrassTile extends Tile{
 
 }

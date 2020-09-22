@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import com.entities.Entity;
 import com.entities.Player;
 import com.graphics.Spritesheet;
+import com.world.Map;
 
 
 public class Game extends Canvas implements Runnable, KeyListener {
@@ -40,6 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public static Spritesheet spritesheet;	
 	
 	public Player player;
+	public static Map world;
 	
 	public Game () {
 		addKeyListener(this);
@@ -49,9 +51,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
-		
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
+		world = new Map("/Map.png");
 	}
 	
 	private void initFrame() {
