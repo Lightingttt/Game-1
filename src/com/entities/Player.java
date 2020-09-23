@@ -26,15 +26,15 @@ public class Player extends Entity{
 		leftPlayer = new BufferedImage[2];
 		standLeftPlayer = new BufferedImage[4];
 		standRightPlayer = new BufferedImage[4];
-		
-		for (int i = 0; i < 2; i++) {
-			rightPlayer [i] = Game.spritesheet.getSprite((i*64), 64, 64, 64);
-		}
-		for (int i = 0; i < 2; i++) {
-			leftPlayer [i] = Game.spritesheet.getSprite(128 + (i*64), 64, 64, 64);
-		}
-		for (int i = 0; i < 4; i++) {
-			standRightPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
+		                                                                                    
+		for (int i = 0; i < 2; i++) {                                                       
+			rightPlayer [i] = Game.spritesheet.getSprite((i*64), 64, 64, 64);               
+		}                                                                                   
+		for (int i = 0; i < 2; i++) {                                                       
+			leftPlayer [i] = Game.spritesheet.getSprite(128 + (i*64), 64, 64, 64);          
+		}                                                                                   
+		for (int i = 0; i < 4; i++) {                                                       
+			standRightPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);           
 		}
 		for (int i = 0; i < 4; i++) {
 			standLeftPlayer [i] = Game.spritesheet.getSprite(256 + (i*64), 0, 64, 64);
