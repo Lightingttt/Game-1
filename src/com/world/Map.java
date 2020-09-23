@@ -16,12 +16,12 @@ public class Map {
 			
 			for (int xx = 0; xx < map.getWidth(); xx++) {
 				for (int yy = 0; yy < map.getWidth(); yy++) {
-				switch(pixel [xx + (yy * map.getWidth())]) {
+					int pixelatual = pixel[xx + (yy * map.getWidth())];
+				switch(pixelatual) {
 				case 0xFFFF0000:
-					System.out.println(pixel[68]);
 					System.out.println("V");
+				case 0xFF00FFFF:
 					
-				//case
 				}
 			}
 		} 
