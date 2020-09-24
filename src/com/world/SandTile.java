@@ -7,5 +7,5 @@ public class SandTile extends Tile {
 	public SandTile(int x, int y, BufferedImage sprite) {
 		super(x, y, sprite);
 	}
-
+	
 }
