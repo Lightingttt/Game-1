@@ -4,10 +4,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.main.Game;
+import com.world.Camera;
 
 public class Entity {
 	
-	public static BufferedImage LIFEFLAME_EN = Game.spritesheet.getSprite(0, 4*64, 64, 64);
+	public static BufferedImage LIFE_FLAME_EN = Game.spritesheet.getSprite(0, 4*64, 64, 64);
 	public static BufferedImage FIRE_AMMO_EN = Game.spritesheet.getSprite(0, 3*64, 64, 64);
 	public static BufferedImage WATER_ENEMY_EN = Game.spritesheet.getSprite(0, 5*64, 64, 64);
 	public static BufferedImage FIRE_RUNE_EN = Game.spritesheet.getSprite(0, 6*64, 64, 64);
@@ -42,13 +43,20 @@ public class Entity {
 		return this.height;
 	}
 	
-	public void tick() {
+	public void setX(int newX) {
+		this.x = newX;
+	}
 	
+	public void setY(int newY) {
+		this.y = newY;
+	}
+	
+	public void tick() {
 		
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(sprite, this.getX(), this.getY(), null);
+		g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
 		
 	}
 

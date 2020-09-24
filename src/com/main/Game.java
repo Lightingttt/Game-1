@@ -26,38 +26,36 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public static JFrame frame;
 	
-	private final int WIDTH = 160;
-	private final int HEIGHT = 120;
-	private final int SCALE = 3;
+	public static final int WIDTH = 768;
+	public static final int HEIGHT = 640;
 	
 	private boolean isRunning = true;
 	private Thread thread;
 	
 	private BufferedImage image;
 	
-	private int x = 0;
-	
-	public List<Entity> entities;
+	public static List<Entity> entities;
 	public static Spritesheet spritesheet;	
 	
-	public Player player;
-	public static Map world;
+	public static Map map;
+	public static Player player;
+	
 	
 	public Game () {
 		addKeyListener(this);
 		//player = sheet.getSprite(0, 0, 32, 32);
-		this.setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE)); //Aplica tamanho da janela
+		this.setPreferredSize(new Dimension(WIDTH,HEIGHT)); //tamanho da janela
 		initFrame();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
-		world = new Map("/Map.png");
+		map = new Map("/Map.png");
 	}
 	
 	private void initFrame() {
-		frame = new JFrame();
+		frame = new JFrame("Game 1");
 		frame.add(this);
 		frame.pack();
 		frame.setResizable(false); // Desabilita o redimensionamento1 do tamanho da janela
@@ -100,16 +98,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			return;
 		}
 		Graphics g = image.getGraphics();
-		g.setColor(new Color(0, 0, 234));
+		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
+		map.render(g);
 		for (int i = 0; i<entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.render(g);
 		}
 		g.dispose();		
 		g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
+		g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
 		bs.show();
 		
 	}
@@ -134,12 +132,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 				
 			} 
 			
-			if(System.currentTimeMillis() - timer == 1000) {
+			if(System.currentTimeMillis() - timer >= 1000) {
 				System.out.println("FPS:" + frames);
 				frames = 0;
 				timer += 1000;
-				System.out.println(player.moving);
-				System.out.println(player.dir);
 			}
 			
 		}

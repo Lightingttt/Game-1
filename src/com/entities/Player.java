@@ -4,17 +4,18 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.main.Game;
+import com.world.Camera;
 
 public class Player extends Entity{
 	
 	public boolean right, left, up, down;
 	
-	private double speed = 1;
+	private double speed = 3;
 	
 	public int right_dir = 0, left_dir = 1;
 	public int dir = right_dir;
 	
-	private int frames = 0, maxFrames = 20, index = 0, maxIndex = 1 ,i = 0, iM = 4;
+	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 1 ,i = 0, iM = 4;
 	private BufferedImage[] rightPlayer, leftPlayer, standLeftPlayer, standRightPlayer;
 	
 	public boolean moving = false;
@@ -82,17 +83,18 @@ public class Player extends Entity{
 				}
 			}
 		}
-		
+		Camera.x = this.getX() - (Game.WIDTH/2) + 32;
+		Camera.y = this.getY() - (Game.HEIGHT/2) + 32;
 	}
 	public void render(Graphics g) {
 		if (moving && dir == right_dir) {
-			g.drawImage(rightPlayer[index], this.getX(), this.getY(), null);
+			g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}else if (moving && dir == left_dir) {
-			g.drawImage(leftPlayer[index], this.getX(), this.getY(), null);
+			g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}else if (moving == false && dir == right_dir) {
-			g.drawImage(standRightPlayer[i], this.getX(), this.getY(), null);
+			g.drawImage(standRightPlayer[i], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}else if (moving == false && dir == left_dir) {
-			g.drawImage(standLeftPlayer[i], this.getX(), this.getY(), null);
+			g.drawImage(standLeftPlayer[i], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}
 	}
 }
