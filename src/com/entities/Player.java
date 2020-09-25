@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import com.main.Game;
 import com.world.Camera;
+import com.world.Map;
 
 public class Player extends Entity{
 	
@@ -12,33 +13,34 @@ public class Player extends Entity{
 	
 	private double speed = 3;
 	
-	public int right_dir = 0, left_dir = 1;
+	
+	public int right_dir = 0, left_dir = 1, up_dir = 2, down_dir = 3;
 	public int dir = right_dir;
 	
-	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 1 ,i = 0, iM = 4;
-	private BufferedImage[] rightPlayer, leftPlayer, standLeftPlayer, standRightPlayer;
+	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 3;
+	private BufferedImage[] rightPlayer, leftPlayer, upPlayer, downPlayer;
 	
 	public boolean moving = false;
 
 	public Player(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		
-		rightPlayer = new BufferedImage[2];
-		leftPlayer = new BufferedImage[2];
-		standLeftPlayer = new BufferedImage[4];
-		standRightPlayer = new BufferedImage[4];
+		rightPlayer = new BufferedImage[4];
+		leftPlayer = new BufferedImage[4];
+		upPlayer = new BufferedImage[4];
+		downPlayer = new BufferedImage[4];
 		                                                                                    
-		for (int i = 0; i < 2; i++) {                                                       
-			rightPlayer [i] = Game.spritesheet.getSprite((i*64), 64, 64, 64);               
-		}                                                                                   
-		for (int i = 0; i < 2; i++) {                                                       
-			leftPlayer [i] = Game.spritesheet.getSprite(128 + (i*64), 64, 64, 64);          
+		for (int i = 0; i < 4; i++) {                                                       
+			rightPlayer [i] = Game.spritesheet.getSprite((i*64) + 256, 64, 64, 64);               
 		}                                                                                   
 		for (int i = 0; i < 4; i++) {                                                       
-			standRightPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);           
+			leftPlayer [i] = Game.spritesheet.getSprite((i*64) + 256, 0, 64, 64);          
+		}                                                                                   
+		for (int i = 0; i < 4; i++) {                                                       
+			upPlayer [i] = Game.spritesheet.getSprite((i*64), 64, 64, 64);           
 		}
 		for (int i = 0; i < 4; i++) {
-			standLeftPlayer [i] = Game.spritesheet.getSprite(256 + (i*64), 0, 64, 64);
+			downPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
 	}
 	
@@ -56,10 +58,12 @@ public class Player extends Entity{
 			x-=speed;
 		
 		}if (up) {
+			dir = up_dir;
 			moving = true;
 			y-=speed;
 		
 		}else if (down) {
+			dir = down_dir;
 			moving = true;
 			y+=speed;
 		}
@@ -73,28 +77,19 @@ public class Player extends Entity{
 				}
 				
 			}
-		}else {
-			frames ++;
-			if (frames == maxFrames) {
-				frames = 0;
-				i++;
-				if(i > 3) {
-					i = 0;
-				}
-			}
 		}
-		Camera.x = this.getX() - (Game.WIDTH/2) + 32;
-		Camera.y = this.getY() - (Game.HEIGHT/2) + 32;
+		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, Map.WIDTH*64 - Game.WIDTH);
+		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, Map.HEIGHT*64 - Game.HEIGHT);
 	}
 	public void render(Graphics g) {
-		if (moving && dir == right_dir) {
+		if (dir == right_dir) {
 			g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-		}else if (moving && dir == left_dir) {
+		}else if (dir == left_dir) {
 			g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-		}else if (moving == false && dir == right_dir) {
-			g.drawImage(standRightPlayer[i], this.getX() - Camera.x, this.getY() - Camera.y, null);
-		}else if (moving == false && dir == left_dir) {
-			g.drawImage(standLeftPlayer[i], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		}else if (dir == up_dir) {
+			g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		}else if (dir == down_dir) {
+			g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}
 	}
 }

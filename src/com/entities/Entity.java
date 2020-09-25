@@ -8,10 +8,10 @@ import com.world.Camera;
 
 public class Entity {
 	
-	public static BufferedImage LIFE_FLAME_EN = Game.spritesheet.getSprite(0, 4*64, 64, 64);
-	public static BufferedImage FIRE_AMMO_EN = Game.spritesheet.getSprite(0, 3*64, 64, 64);
-	public static BufferedImage WATER_ENEMY_EN = Game.spritesheet.getSprite(0, 5*64, 64, 64);
-	public static BufferedImage FIRE_RUNE_EN = Game.spritesheet.getSprite(0, 6*64, 64, 64);
+	public static BufferedImage LIFE_FLAME_EN = Game.spritesheet.getSprite(0, 7*64, 64, 64);
+	public static BufferedImage FIRE_AMMO_EN = Game.spritesheet.getSprite(0, 6*64, 64, 64);
+	public static BufferedImage WATER_ENEMY_EN = Game.spritesheet.getSprite(0, 8*64, 64, 64);
+	public static BufferedImage FIRE_RUNE_EN = Game.spritesheet.getSprite(0, 9*64, 64, 64);
 
 	protected int x, y, width, height;
 	
