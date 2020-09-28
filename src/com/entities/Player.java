@@ -13,6 +13,7 @@ public class Player extends Entity{
 	
 	private double speed = 3;
 	
+	public static boolean transform = false;
 	
 	public int right_dir = 0, left_dir = 1, up_dir = 2, down_dir = 3;
 	public int dir = right_dir;
@@ -29,7 +30,9 @@ public class Player extends Entity{
 		leftPlayer = new BufferedImage[4];
 		upPlayer = new BufferedImage[4];
 		downPlayer = new BufferedImage[4];
-		                                                                                    
+		
+		
+	
 		for (int i = 0; i < 4; i++) {                                                       
 			rightPlayer [i] = Game.spritesheet.getSprite((i*64) + 256, 64, 64, 64);               
 		}                                                                                   
@@ -42,10 +45,11 @@ public class Player extends Entity{
 		for (int i = 0; i < 4; i++) {
 			downPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
+		
 	}
 	
 	public void tick() {
-		//System.out.println(moving);
+		//System.out.println(transform);
 		moving = false;
 		if (right && Map.isFree((int)(x+speed), y)) {
 			moving = true;
@@ -67,6 +71,10 @@ public class Player extends Entity{
 			moving = true;
 			y+=speed;
 		}
+		if(!transform) {
+			
+		
+		
 		if (moving) {
 			frames++;
 			if (frames == maxFrames) {
@@ -77,7 +85,20 @@ public class Player extends Entity{
 				}
 				
 			}
+		}}
+		
+		else if (transform) {
+			frames++;
+			if (frames == maxFrames) {
+				frames = 0;
+				index++;
+				if(index > maxIndex) {
+					index = 0;
+				}
+				
+			}
 		}
+		
 		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, Map.WIDTH*64 - Game.WIDTH);
 		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, Map.HEIGHT*64 - Game.HEIGHT);
 	}

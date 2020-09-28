@@ -120,6 +120,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		double delta = 0;
 		int frames = 0;
 		double timer = System.currentTimeMillis();
+		requestFocus();
 		while (isRunning) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -159,6 +160,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			player.down = true;
 			
 		}
+		if(e.getKeyCode() == KeyEvent.VK_Z) {
+			Player.transform = true;
+			System.out.println(Player.transform);
+		}
 	}
 
 	@Override
@@ -181,9 +186,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
