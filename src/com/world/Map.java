@@ -16,15 +16,13 @@ import com.main.Game;
 
 public class Map {
 	
-	private Tile[] tiles;
+	private static Tile[] tiles;
 	
 	public static int WIDTH;
 
 	public static int HEIGHT;
 	
-	private static int tileSize = 64;
-	
-	//private Random rand;
+	private static final int TILE_SIZE = 64;
 	
 	public Map(String path) {
 		try {
@@ -43,7 +41,7 @@ public class Map {
 				for (int yy = 0; yy < HEIGHT; yy++) {
 					int pixelAtual = pixel[xx + (yy * map.getWidth())];
 					Random rand = new Random();
-					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*tileSize, yy*tileSize, Tile.TILE_GRASS_FLOOR);
+					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_GRASS_FLOOR);
 					
 					
 				switch(pixelAtual) {
@@ -53,13 +51,13 @@ public class Map {
 					}
 					break;
 				case 0xFFFFFF00://PIXEL AMARELO
-					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*tileSize, yy*tileSize, Tile.TILE_SAND_FLOOR);
+					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_SAND_FLOOR);
 					break;
 				case 0xFF808080://PIXEL CINZA
-					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*tileSize, yy*tileSize, Tile.TILE_STONE_FLOOR);
+					tiles [xx + (yy * WIDTH)] = new StoneTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_STONE_FLOOR);
 					break;
 				case 0xFFFFFFFF://PIXEL BRANCO
-					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*tileSize, yy*tileSize, Tile.TILE_WALL);
+					tiles [xx + (yy * WIDTH)] = new WallTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_WALL);
 					break;
 				case 0xFF00FFFF://PIXEL CIANO
 					Game.entities.add(new FireRune(xx*64, yy*64, 64, 64, Entity.FIRE_RUNE_EN));
@@ -77,7 +75,7 @@ public class Map {
 				case 0xFFFF0000://PIXEL VERMELHO
 					//tiles [xx + (yy * WIDTH)] = new GrassTile(xx*blockSize, yy*blockSize, Tile.TILE_GRASS_FLOOR);
 					//break;
-					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*tileSize, yy*tileSize, Tile.TILE_GRASS_FLOOR);
+					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_GRASS_FLOOR);
 				}
 				
 			}
@@ -92,9 +90,24 @@ public class Map {
 		
 	
 		}
+	// METODO DE COLISÃO
 	public static boolean isFree(int xNext, int yNext)	{
-		return false;
+		int x1 = (xNext / TILE_SIZE);
+		int y1 = (yNext / TILE_SIZE);
 		
+		int x2 = (xNext + TILE_SIZE)/ TILE_SIZE;
+		int y2 = (yNext / TILE_SIZE);
+		
+		int x3 = (xNext / TILE_SIZE);
+		int y3 = (yNext + TILE_SIZE)/ TILE_SIZE;
+		
+		int x4 = (xNext + TILE_SIZE)/ TILE_SIZE;
+		int y4 = (yNext + TILE_SIZE)/ TILE_SIZE;
+		
+		return !(tiles [x1 + (y1*Map.WIDTH)] instanceof WallTile ||
+				tiles [x2 + (y2*Map.WIDTH)] instanceof WallTile ||
+				tiles [x3 + (y3*Map.WIDTH)] instanceof WallTile ||
+				tiles [x4 + (y4*Map.WIDTH)] instanceof WallTile);
 		
 	}
 	

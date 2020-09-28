@@ -47,22 +47,22 @@ public class Player extends Entity{
 	public void tick() {
 		//System.out.println(moving);
 		moving = false;
-		if (right) {
+		if (right && Map.isFree((int)(x+speed), y)) {
 			moving = true;
 			dir = right_dir;
 			x+=speed;
 			
-		}else if (left) {
+		}else if (left && Map.isFree((int)(x-speed), y)) {
 			moving = true;
 			dir = left_dir;
 			x-=speed;
 		
-		}if (up) {
+		}if (up && Map.isFree(x, (int)(y-speed))) {
 			dir = up_dir;
 			moving = true;
 			y-=speed;
 		
-		}else if (down) {
+		}else if (down && Map.isFree(x, (int)(y+speed))) {
 			dir = down_dir;
 			moving = true;
 			y+=speed;
