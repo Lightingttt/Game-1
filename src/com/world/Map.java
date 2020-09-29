@@ -68,6 +68,8 @@ public class Map {
 				case 0xFF0026FF://PIXEL AZUL
 					Game.player.setX(xx*64);
 					Game.player.setY(yy*64);
+					Game.tp.setX(xx*64);
+					Game.tp.setY(yy*64);
 					break;
 				case 0xFFFF00FF://PIXEL ROSA
 					Game.entities.add(new FireAmmo(xx*64, yy*64, 64, 64, Entity.FIRE_AMMO_EN));

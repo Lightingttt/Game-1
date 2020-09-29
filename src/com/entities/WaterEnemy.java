@@ -1,5 +1,6 @@
 package com.entities;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -25,11 +26,9 @@ public class WaterEnemy extends Entity{
 		//rSpeed = rand.nextInt(2);
 		if (x < Game.player.getX() && Map.isFree((int)(x+speed), y)){
 			
-			
 			x += speed;
 			
-		}
-		else if (x > Game.player.getX() && Map.isFree((int)(x-speed), y)){
+		}else if (x > Game.player.getX() && Map.isFree((int)(x-speed), y)){
 			
 			x -= speed;
 			
@@ -37,13 +36,22 @@ public class WaterEnemy extends Entity{
 			
 			y += speed;
 			
-		}
-		else if (y > Game.player.getY() && Map.isFree(x, (int) (y-speed))){
+		}else if (y > Game.player.getY() && Map.isFree(x, (int) (y-speed))){
 			
 			y -= speed;
 			
 		}
 		
 	}
-
+	public boolean isColinding(int xNext, int yNext) {
+		Rectangle ColisionArea = new Rectangle(xNext, yNext);
+		for (int i = 0; i < Game.entities.size(); i++) {
+			WaterEnemy e = Game.enemies.get(i);
+			if (e == this) {
+				continue;
+				
+			}
+		}return false;
+		
+	}
 }

@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 
 import com.entities.Entity;
 import com.entities.Player;
+import com.entities.TP;
+import com.entities.WaterEnemy;
 import com.graphics.Spritesheet;
 import com.world.Map;
 
@@ -39,11 +41,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	public static Map map;
 	public static Player player;
+	public static WaterEnemy enemies;
+	public static TP tp;
 	
 	
 	public Game () {
 		addKeyListener(this);
-		//player = sheet.getSprite(0, 0, 32, 32);
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT)); //tamanho da janela
 		initFrame();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -51,6 +54,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
+		tp = new TP(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
+		entities.add(tp);
 		map = new Map("/Map.png");
 	}
 	
@@ -161,8 +166,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_Z) {
-			Player.transform = true;
-			System.out.println(Player.transform);
+			if(!TP.transform) {
+			TP.transform = true;
+			} else {
+				TP.transform = false;
+			}
+			System.out.println(TP.transform);
 		}
 	}
 

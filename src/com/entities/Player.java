@@ -11,7 +11,7 @@ public class Player extends Entity{
 	
 	public boolean right, left, up, down;
 	
-	private double speed = 3;
+	public static double speed = 3;
 	
 	public static boolean transform = false;
 	
@@ -71,10 +71,7 @@ public class Player extends Entity{
 			moving = true;
 			y+=speed;
 		}
-		if(!transform) {
-			
-		
-		
+
 		if (moving) {
 			frames++;
 			if (frames == maxFrames) {
@@ -83,19 +80,6 @@ public class Player extends Entity{
 				if(index > maxIndex) {
 					index = 0;
 				}
-				
-			}
-		}}
-		
-		else if (transform) {
-			frames++;
-			if (frames == maxFrames) {
-				frames = 0;
-				index++;
-				if(index > maxIndex) {
-					index = 0;
-				}
-				
 			}
 		}
 		
