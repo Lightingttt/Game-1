@@ -11,8 +11,6 @@ public class TP extends Entity{
 	
 	public boolean right, left, up, down;
 	
-	private double speed = Player.speed;
-	
 	public static boolean transform = false;
 
 	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 3;
@@ -34,7 +32,7 @@ public class TP extends Entity{
 	}
 	
 	public void tick() {
-		//System.out.println(transform);
+		double speed = Game.player.speed;
 		moving = false;
 		if (Game.player.right && Map.isFree((int)(x+speed), y)) {
 			moving = true;

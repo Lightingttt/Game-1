@@ -11,18 +11,18 @@ import com.entities.Entity;
 import com.entities.FireAmmo;
 import com.entities.FireRune;
 import com.entities.LifeFlame;
-import com.entities.WaterEnemy;
+import com.entities.Enemy;
 import com.main.Game;
 
 public class Map {
 	
-	private static Tile[] tiles;
+	public static Tile[] tiles;
 	
 	public static int WIDTH;
 
 	public static int HEIGHT;
 	
-	private static final int TILE_SIZE = 64;
+	public static final int TILE_SIZE = 64;
 	
 	public Map(String path) {
 		try {
@@ -46,12 +46,15 @@ public class Map {
 					
 				switch(pixelAtual) {
 				case 0xFF000000://PIXEL PRETO
-					if (rand.nextInt(99) <= 1) {
-						Game.entities.add(new WaterEnemy(xx*64, yy*64, 64, 64, Entity.WATER_ENEMY_EN));
+					if (rand.nextInt(100) <= 1) {
+						Enemy en = new Enemy(xx*64, yy*64, 64, 64, Entity.WATER_ENEMY_EN);
+						Game.enemies.add(en);
+						Game.entities.add(en);
+						
 					}
 					break;
 				case 0xFFFFFF00://PIXEL AMARELO
-					tiles [xx + (yy * WIDTH)] = new GrassTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_SAND_FLOOR);
+					tiles [xx + (yy * WIDTH)] = new SandTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_SAND_FLOOR);
 					break;
 				case 0xFF808080://PIXEL CINZA
 					tiles [xx + (yy * WIDTH)] = new StoneTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_STONE_FLOOR);

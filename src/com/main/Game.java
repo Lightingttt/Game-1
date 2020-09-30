@@ -10,13 +10,14 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
 import com.entities.Entity;
 import com.entities.Player;
 import com.entities.TP;
-import com.entities.WaterEnemy;
+import com.entities.Enemy;
 import com.graphics.Spritesheet;
 import com.world.Map;
 
@@ -37,13 +38,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	private BufferedImage image;
 	
 	public static List<Entity> entities;
+	public static List<Enemy> enemies;
 	public static Spritesheet spritesheet;	
 	
 	public static Map map;
 	public static Player player;
-	public static WaterEnemy enemies;
 	public static TP tp;
 	
+	public static Random rnd = new Random();
 	
 	public Game () {
 		addKeyListener(this);
@@ -51,12 +53,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		initFrame();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
+		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
 		tp = new TP(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(tp);
-		map = new Map("/Map.png");
+		map = new Map("/SmallMap.png");
 	}
 	
 	private void initFrame() {
