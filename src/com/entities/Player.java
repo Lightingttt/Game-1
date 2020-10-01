@@ -16,13 +16,14 @@ public class Player extends Entity{
 	
 	public boolean right, left, up, down;
 	
-	public static double speed = 4;
+	public static double speed = 3;
+	public static double normalSpeed = 3;
 	
 	public static boolean transform = false;
 	
-	private static Tile[] tiles;
+	//private static Tile[] tiles;
 	
-	public int hp = 100;
+	public double maxhp = 100, hp = 100;
 	
 	public int right_dir = 0, left_dir = 1, up_dir = 2, down_dir = 3;
 	public int dir = right_dir;
@@ -43,7 +44,6 @@ public class Player extends Entity{
 		downPlayer = new BufferedImage[4];
 		
 		
-	
 		for (int i = 0; i < 4; i++) {                                                       
 			rightPlayer [i] = Game.spritesheet.getSprite((i*64) + 256, 64, 64, 64);               
 		}                                                                                   

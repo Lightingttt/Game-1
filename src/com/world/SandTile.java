@@ -2,6 +2,7 @@ package com.world;
 
 import java.awt.image.BufferedImage;
 
+import com.entities.Player;
 import com.main.Game;
 
 public class SandTile extends Tile {
@@ -12,9 +13,9 @@ public class SandTile extends Tile {
 	public static void slow (int xNext, int yNext) {
 		
 		if (Map.tiles [((xNext/62) + ((yNext/62) * Map.WIDTH))] instanceof SandTile)
-		Game.player.speed = 2;
+		Player.speed = 2;
 		else {
-		Game.player.speed = 4;	
+		Player.speed = Player.normalSpeed;	
 		}
 		
 	}

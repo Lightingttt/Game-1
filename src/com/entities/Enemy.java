@@ -83,7 +83,7 @@ public class Enemy extends Entity{
 	
 	public void render(Graphics g) {
 		super.render(g);
-		g.setColor(Color.BLUE);
-		g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
+		//g.setColor(Color.BLUE);
+		//1g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
 	}
 }

@@ -19,6 +19,7 @@ import com.entities.Player;
 import com.entities.TP;
 import com.entities.Enemy;
 import com.graphics.Spritesheet;
+import com.graphics.UI;
 import com.world.Map;
 
 
@@ -44,6 +45,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public static Map map;
 	public static Player player;
 	public static TP tp;
+	public static UI ui;
 	
 	public static Random rnd = new Random();
 	
@@ -54,6 +56,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
+		ui = new UI();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
@@ -113,6 +116,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			Entity e = entities.get(i);
 			e.render(g);
 		}
+		ui.render(g);
 		g.dispose();		
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
