@@ -46,12 +46,12 @@ public class Map {
 					
 				switch(pixelAtual) {
 				case 0xFF000000://PIXEL PRETO
-					if (rand.nextInt(100) <= 1) {
+					/*if (rand.nextInt(100) <= 1) {
 						Enemy en = new Enemy(xx*64, yy*64, 64, 64, Entity.WATER_ENEMY_EN);
 						Game.enemies.add(en);
 						Game.entities.add(en);
 						
-					}
+					}*/
 					break;
 				case 0xFFFFFF00://PIXEL AMARELO
 					tiles [xx + (yy * WIDTH)] = new SandTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_SAND_FLOOR);

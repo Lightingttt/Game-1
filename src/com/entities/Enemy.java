@@ -51,9 +51,10 @@ public class Enemy extends Entity{
 		}else {
 			if (Game.rnd.nextInt(100) <10){
 			Game.player.hp-= dmg ;
+			//System.out.println(Game.player.hp);
 			}
 			
-			System.out.println(Game.player.hp);
+			
 		}
 	}
 	

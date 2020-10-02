@@ -1,10 +1,13 @@
 package com.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.main.Game;
 import com.world.Camera;
+import com.world.Map;
 
 public class Entity {
 	
@@ -14,6 +17,8 @@ public class Entity {
 	public static BufferedImage FIRE_RUNE_EN = Game.spritesheet.getSprite(0, 9*64, 64, 64);
 
 	protected int x, y, width, height;
+	
+	protected int maskX, maskY, maskW, maskH;
 	
 	private BufferedImage sprite;
 	
@@ -25,6 +30,17 @@ public class Entity {
 		this.height = height;
 		this.sprite = sprite;
 		
+		this.maskX = 0;
+		this.maskY = 0;
+		this.maskW = width;
+		this.maskH = height;
+	}
+	
+	public void setMask (int maskX,int maskY,int maskW,int maskH) {
+		this.maskX = maskX;
+		this.maskY = maskY;
+		this.maskW = maskW;
+		this.maskH = maskH;
 	}
 	
 	public int getY() {
@@ -55,10 +71,30 @@ public class Entity {
 		
 	}
 	
+	public static Entity checkItem() {
+		Entity en = null;
+		for (int i = 0; i < Game.entities.size(); i++) {
+			en = Game.entities.get(i);
+			//System.out.println("Check");
+		}
+		return en;
+	}
+	
+	
+	public static boolean isColindingWith(Entity e1, Entity e2) {
+		Rectangle e1Mask = new Rectangle(e1.getX() + e1.maskX, e1.getY() + e1.maskY, e1.maskW, e1.maskH);
+		Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskX, e2.getY() + e2.maskY, e2.maskW, e2.maskH);
+			
+		//System.out.println("Esta colidindo");
+		return e1Mask.intersects(e2Mask);			
+		}
+
 	public void render(Graphics g) {
 		g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
-		
+		//g.setColor(Color.BLUE);
+		//g.fillRect(this.getX()- Camera.x, this.getY() - Camera.y, Map.TILE_SIZE, Map.TILE_SIZE);
 	}
+
 
 	
 }

@@ -23,7 +23,7 @@ public class Player extends Entity{
 	
 	//private static Tile[] tiles;
 	
-	public double maxhp = 100, hp = 100;
+	public double maxhp = 100, hp = 50;
 	
 	public int right_dir = 0, left_dir = 1, up_dir = 2, down_dir = 3;
 	public int dir = right_dir;
@@ -105,6 +105,7 @@ public class Player extends Entity{
 		System.out.println(Map.isFree(x, (int)(y+speed)));
 		System.out.println(Map.isFree(x, (int)(y-speed)));*/
 		SandTile.slow(x, y);
+		LifeFlame.heal();
 		
 		moving = false;
 		if (right && Map.isFree((int)(x+speed), y)) {
@@ -140,9 +141,45 @@ public class Player extends Entity{
 			}
 		}
 		
+		isColiddingLifeFLame();
+		
 		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, Map.WIDTH*64 - Game.WIDTH);
 		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, Map.HEIGHT*64 - Game.HEIGHT);
 	}
+	/*public void isColiddingLifeFLame() {
+		if (checkItem() instanceof LifeFlame) {
+			if (isColindingWith(this, checkItem())) {
+				System.out.println("Colidiu");
+				hp+= 10;
+				if (hp > maxhp) {
+					hp = maxhp;
+				}
+				//Game.entities.remove(checkItem());
+			}
+			
+		}
+		
+	}*/
+	
+	public void isColiddingLifeFLame() {
+		for (int i = 0; i < Game.entities.size(); i++) {
+			Entity en = Game.entities.get(i);
+			if (en instanceof LifeFlame) {
+				if (isColindingWith(this, en)) {
+					System.out.println("Colidiu");
+					LifeFlame.healing = true;
+					if (hp > maxhp) {
+						hp = maxhp;
+						Math.floor(9.37726);
+					}
+					Game.entities.remove(en);
+				}
+			}
+		}
+	}
+			
+		
+	
 	public void render(Graphics g) {
 		if (dir == right_dir) {
 			g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);

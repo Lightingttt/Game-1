@@ -149,6 +149,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 				System.out.println("FPS:" + frames);
 				frames = 0;
 				timer += 1000;
+				//System.out.println("Esta checando: " + Entity.checkItem());
+				//System.out.println(Game.player.hp);
 			}
 			
 		}
