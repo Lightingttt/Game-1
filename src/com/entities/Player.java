@@ -170,7 +170,6 @@ public class Player extends Entity{
 					LifeFlame.healing = true;
 					if (hp > maxhp) {
 						hp = maxhp;
-						Math.floor(9.37726);
 					}
 					Game.entities.remove(en);
 				}

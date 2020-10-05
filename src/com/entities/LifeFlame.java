@@ -10,9 +10,7 @@ import com.world.Map;
 
 public class LifeFlame extends Entity {
 
-	private static double heal = 2.03265247, maxHeal = 36, curHeal = 0;
-	
-	private static double teste = 2.03265247;
+	private static double heal = 2, maxHeal = 36, curHeal = 0;
 	
 	public static boolean healing = false;
 	
@@ -31,9 +29,7 @@ public class LifeFlame extends Entity {
 			if (frames >=maxFrames && healing) {
 				Game.player.hp += heal;
 				curHeal += heal;
-				frames = 0;
-				System.out.println(teste);
-				
+				frames = 0;				
 				System.out.println("Curou " + Game.player.hp);
 				if(curHeal > maxHeal) {
 					healing = false;
