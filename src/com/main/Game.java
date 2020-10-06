@@ -3,6 +3,7 @@ package com.main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,7 +17,7 @@ import javax.swing.JFrame;
 
 import com.entities.Entity;
 import com.entities.Player;
-import com.entities.TP;
+import com.entities.Aura;
 import com.entities.Enemy;
 import com.graphics.Spritesheet;
 import com.graphics.UI;
@@ -44,10 +45,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	public static Map map;
 	public static Player player;
-	public static TP tp;
+	public static Aura tp;
 	public static UI ui;
 	
 	public static Random rnd = new Random();
+	
+	private String gameStatus = "NORMAL";
 	
 	public Game () {
 		addKeyListener(this);
@@ -60,7 +63,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(player);
-		tp = new TP(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
+		tp = new Aura(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(tp);
 		map = new Map("/SmallMap.png");
 	}
@@ -93,6 +96,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		
 	}
 	
+	
 	public void tick() {
 			for (int i = 0; i<entities.size(); i++) {
 				Entity e = entities.get(i);
@@ -101,6 +105,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		}
 		
 	}
+	
 	
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
@@ -120,6 +125,23 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		g.dispose();		
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("arial", Font.BOLD, 15));
+		g.drawString("SP", 20, 63+13);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("arial", Font.BOLD, 15));
+		g.drawString("MP", 20, 43+13);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("arial", Font.BOLD, 15));
+		g.drawString("HP", 20, 23+13);
+		
+		g.setColor(Color.white);
+		g.setFont(new Font("arial", Font.BOLD, 14));
+		g.drawString("Fire Power: " + Player.power, 20, 83+13);
+		
 		bs.show();
 		
 	}
@@ -175,12 +197,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_Z) {
-			if(!TP.transform) {
-			TP.transform = true;
+			if(!Aura.transform && Game.player.sp > 0) {
+			Aura.transform = true;
 			} else {
-				TP.transform = false;
+				Aura.transform = false;
 			}
-			System.out.println(TP.transform);
+			System.out.println(Aura.transform);
 		}
 	}
 

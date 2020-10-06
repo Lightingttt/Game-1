@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import com.graphics.Spritesheet;
+import com.graphics.UI;
 import com.main.Game;
 import com.world.Camera;
 import com.world.Map;
@@ -19,11 +22,15 @@ public class Player extends Entity{
 	public static double speed = 3;
 	public static double normalSpeed = 3;
 	
+	public static int power = 1, maxPower = 5;
+	
 	public static boolean transform = false;
 	
 	//private static Tile[] tiles;
 	
-	public double maxhp = 100, hp = 50;
+	public double maxhp = 100, hp = 100;
+	public double maxsp = 100, sp = 20;
+	public double maxmp = 200, mp = 50;
 	
 	public int right_dir = 0, left_dir = 1, up_dir = 2, down_dir = 3;
 	public int dir = right_dir;
@@ -61,7 +68,7 @@ public class Player extends Entity{
 	
 	public void tick() {
 		//System.out.println(transform);
-		/*int x1 = (int) ((x+speed) / Map.TILE_SIZE);
+		int x1 = (int) ((x+speed) / Map.TILE_SIZE);
 		int y1 = (int) (y / Map.TILE_SIZE);
 		
 		int x2 = (int) ((x-speed) + Map.TILE_SIZE)/ Map.TILE_SIZE;
@@ -93,7 +100,7 @@ public class Player extends Entity{
 		System.out.println("xy3 "+xy3);
 		System.out.println("xy4 "+xy4);
 		
-		tiles = new Tile [Map.WIDTH * Map.HEIGHT];
+		Tile[] tiles = new Tile [Map.WIDTH * Map.HEIGHT];
 		
 		boolean wall1 = tiles [x1 + (y1*Map.WIDTH)] instanceof WallTile;
 		boolean	wall2 = tiles [x2 + (y2*Map.WIDTH)] instanceof WallTile;
@@ -103,10 +110,12 @@ public class Player extends Entity{
 		System.out.println(Map.isFree((int)(x+speed), y));
 		System.out.println(Map.isFree((int)(x-speed), y));
 		System.out.println(Map.isFree(x, (int)(y+speed)));
-		System.out.println(Map.isFree(x, (int)(y-speed)));*/
+		System.out.println(Map.isFree(x, (int)(y-speed)));
 		SandTile.slow(x, y);
 		LifeFlame.heal();
-		
+		if (hp > maxhp) {
+			hp = maxhp;
+		}
 		moving = false;
 		if (right && Map.isFree((int)(x+speed), y)) {
 			moving = true;
@@ -142,9 +151,23 @@ public class Player extends Entity{
 		}
 		
 		isColiddingLifeFLame();
+		isColiddingFirePower();
 		
 		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, Map.WIDTH*64 - Game.WIDTH);
 		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, Map.HEIGHT*64 - Game.HEIGHT);
+		
+		if(hp <= 0) {
+			Game.entities = new ArrayList<Entity>();
+			Game.enemies = new ArrayList<Enemy>();
+			Game.ui = new UI();
+			Game.spritesheet = new Spritesheet("/SpriteSheet.png");
+			Game.player = new Player(0, 0, 64, 64, Game.spritesheet.getSprite(0, 0, 64, 64));
+			Game.entities.add(Game.player);
+			Game.tp = new Aura(0, 0, 64, 64, Game.spritesheet.getSprite(0, 0, 64, 64));
+			Game.entities.add(Game.tp);
+			Game.map = new Map("/SmallMap.png");
+			
+	}
 	}
 	/*public void isColiddingLifeFLame() {
 		if (checkItem() instanceof LifeFlame) {
@@ -168,16 +191,29 @@ public class Player extends Entity{
 				if (isColindingWith(this, en)) {
 					System.out.println("Colidiu");
 					LifeFlame.healing = true;
-					if (hp > maxhp) {
-						hp = maxhp;
-					}
 					Game.entities.remove(en);
 				}
 			}
 		}
 	}
-			
+	
+	public void isColiddingFirePower() {
+		for (int i = 0; i < Game.entities.size(); i++) {
+			Entity en = Game.entities.get(i);
+			if (en instanceof FirePower) {
+				if (isColindingWith(this, en)) {
+					System.out.println("Colidiu" + power);
+					power++;
+					if (power > maxPower) {
+						power = maxPower;
+					}
+					Game.entities.remove(en);
+				}
+			}
+		}
+	
 		
+	}
 	
 	public void render(Graphics g) {
 		if (dir == right_dir) {

@@ -50,7 +50,9 @@ public class Enemy extends Entity{
 		}
 		}else {
 			if (Game.rnd.nextInt(100) <10){
-			Game.player.hp-= dmg ;
+				Game.player.hp-= dmg ;
+				if (Game.player.hp < 0)
+					Game.player.hp = 0;
 			//System.out.println(Game.player.hp);
 			}
 			

@@ -7,18 +7,18 @@ import com.main.Game;
 import com.world.Camera;
 import com.world.Map;
 
-public class TP extends Entity{
+public class Aura extends Entity{
 	
 	public boolean right, left, up, down;
 	
 	public static boolean transform = false;
 
-	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 3;
+	private int frames = 0, maxFrames = 10, framesSP = 0, maxFramesSP = 60,  index = 0, maxIndex = 3;
 	private BufferedImage[] aura;
 	
 	public boolean moving = false;
 
-	public TP(int x, int y, int width, int height, BufferedImage sprite) {
+	public Aura(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		
 		aura = new BufferedImage[4];
@@ -51,7 +51,7 @@ public class TP extends Entity{
 			y+=speed;
 		}
 
-		if (transform) {
+		if (transform && Game.player.sp > 0) {
 			frames++;
 			if (frames == maxFrames) {
 				frames = 0;
@@ -62,11 +62,29 @@ public class TP extends Entity{
 			}
 		}
 		
+		if (transform  && Game.player.sp > 0) {
+			framesSP++;
+			Game.player.maxhp = 400;
+			Game.player.hp += 0.5;
+			if (framesSP == maxFramesSP) {
+				framesSP = 0;
+				Game.player.sp-= 5;
+				
+				if (Game.player.sp <= 0) {
+					transform = false;
+				}
+			
+			}
+			}else {
+				Game.player.maxhp = 200;
+			}
+		}
+		
 		//Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, Map.WIDTH*64 - Game.WIDTH);
 		//Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, Map.HEIGHT*64 - Game.HEIGHT);
-	}
+	
 	public void render(Graphics g) {
-		if (transform) {
+		if (transform && Game.player.sp > 0) {
 			g.drawImage(aura[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 	}
 }

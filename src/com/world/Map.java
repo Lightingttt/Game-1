@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import com.entities.Entity;
-import com.entities.FireAmmo;
+import com.entities.FirePower;
 import com.entities.FireRune;
 import com.entities.LifeFlame;
 import com.entities.Enemy;
@@ -46,12 +46,12 @@ public class Map {
 					
 				switch(pixelAtual) {
 				case 0xFF000000://PIXEL PRETO
-					/*if (rand.nextInt(100) <= 1) {
+					if (rand.nextInt(100) <= 1) {
 						Enemy en = new Enemy(xx*64, yy*64, 64, 64, Entity.WATER_ENEMY_EN);
 						Game.enemies.add(en);
 						Game.entities.add(en);
 						
-					}*/
+					}
 					break;
 				case 0xFFFFFF00://PIXEL AMARELO
 					tiles [xx + (yy * WIDTH)] = new SandTile(xx*TILE_SIZE, yy*TILE_SIZE, Tile.TILE_SAND_FLOOR);
@@ -75,7 +75,7 @@ public class Map {
 					Game.tp.setY(yy*64);
 					break;
 				case 0xFFFF00FF://PIXEL ROSA
-					Game.entities.add(new FireAmmo(xx*64, yy*64, 64, 64, Entity.FIRE_AMMO_EN));
+					Game.entities.add(new FirePower(xx*64, yy*64, 64, 64, Entity.FIRE_AMMO_EN));
 					break;
 				case 0xFFFF0000://PIXEL VERMELHO
 					//tiles [xx + (yy * WIDTH)] = new GrassTile(xx*blockSize, yy*blockSize, Tile.TILE_GRASS_FLOOR);
