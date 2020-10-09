@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import com.entities.Entity;
 import com.entities.Player;
 import com.entities.Aura;
+import com.entities.DmgText;
 import com.entities.Enemy;
 import com.graphics.Spritesheet;
 import com.graphics.UI;
@@ -41,6 +42,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	public static List<Entity> entities;
 	public static List<Enemy> enemies;
+	public static List<DmgText> dmgTexts;
 	public static Spritesheet spritesheet;	
 	
 	public static Map map;
@@ -65,6 +67,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		entities.add(player);
 		tp = new Aura(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
 		entities.add(tp);
+		dmgTexts = new ArrayList<DmgText>();
 		map = new Map("/SmallMap.png");
 	}
 	
@@ -101,9 +104,11 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			for (int i = 0; i<entities.size(); i++) {
 				Entity e = entities.get(i);
 				e.tick();
-				
-		}
-		
+			}
+			for (int i = 0; i<dmgTexts.size(); i++) {
+				Entity e = dmgTexts.get(i);
+				e.tick();
+			}
 	}
 	
 	
@@ -119,6 +124,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		map.render(g);
 		for (int i = 0; i<entities.size(); i++) {
 			Entity e = entities.get(i);
+			e.render(g);
+		}
+		for (int i = 0; i<dmgTexts.size(); i++) {
+			Entity e = dmgTexts.get(i);
 			e.render(g);
 		}
 		ui.render(g);

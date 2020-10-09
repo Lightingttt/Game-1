@@ -68,7 +68,7 @@ public class Player extends Entity{
 	
 	public void tick() {
 		//System.out.println(transform);
-		int x1 = (int) ((x+speed) / Map.TILE_SIZE);
+		/*int x1 = (int) ((x+speed) / Map.TILE_SIZE);
 		int y1 = (int) (y / Map.TILE_SIZE);
 		
 		int x2 = (int) ((x-speed) + Map.TILE_SIZE)/ Map.TILE_SIZE;
@@ -110,7 +110,8 @@ public class Player extends Entity{
 		System.out.println(Map.isFree((int)(x+speed), y));
 		System.out.println(Map.isFree((int)(x-speed), y));
 		System.out.println(Map.isFree(x, (int)(y+speed)));
-		System.out.println(Map.isFree(x, (int)(y-speed)));
+		System.out.println(Map.isFree(x, (int)(y-speed)));*/
+		
 		SandTile.slow(x, y);
 		LifeFlame.heal();
 		if (hp > maxhp) {

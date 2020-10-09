@@ -1,6 +1,7 @@
 package com.entities;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -18,8 +19,10 @@ public class Enemy extends Entity{
 	
 	public Rectangle enemyRect;
 	
+	private Graphics f;
+	
 	public int hp = 100;
-	public double dmg = 2;
+	public static double dmg = 2;
 	
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -30,6 +33,7 @@ public class Enemy extends Entity{
 	
 	public void tick() {
 		//System.out.println(speed);
+		DmgText dmg = new DmgText(0, 0, width, height, null);
 		if (this.isColidingWithPlayer() == false) {
 		if (x < Game.player.getX() && Map.isFree((int)(x+speed), this.getY()) && !isColinding((int)(x+speed), this.getY())){
 			
@@ -49,13 +53,8 @@ public class Enemy extends Entity{
 			
 		}
 		}else {
-			if (Game.rnd.nextInt(100) <10){
-				Game.player.hp-= dmg ;
-				if (Game.player.hp < 0)
-					Game.player.hp = 0;
-			//System.out.println(Game.player.hp);
-			}
 			
+			damage();
 			
 		}
 	}
@@ -84,9 +83,26 @@ public class Enemy extends Entity{
 		return false;
 	}
 	
+	public void damage() {
+		if (Game.rnd.nextInt(100) <10){
+			
+			Game.player.hp-= dmg;
+			
+			DmgText dmg = new DmgText(Game.player.getX(), Game.player.getY(), width, height, null);
+			Game.dmgTexts.add(dmg);
+			
+			if (Game.player.hp < 0)
+				Game.player.hp = 0;
+			
+		}
+		
+		
+	}
+	
 	public void render(Graphics g) {
 		super.render(g);
 		//g.setColor(Color.BLUE);
 		//1g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
+
 	}
 }

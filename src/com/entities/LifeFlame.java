@@ -10,7 +10,7 @@ import com.world.Map;
 
 public class LifeFlame extends Entity {
 
-	private static double heal = 8, maxHeal = 36, curHeal = 0;
+	public static double heal = 8, maxHeal = 36, curHeal = 0;
 	
 	public static boolean healing = false;
 	
