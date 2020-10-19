@@ -213,6 +213,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
 			}
 			System.out.println(Aura.transform);
 		}
+		if(e.getKeyCode() == KeyEvent.VK_X) {
+			if(!Aura.transform && Game.player.sp > 0) {
+			Aura.transform = true;
+			} else {
+				Aura.transform = false;
+			}
+			System.out.println(Aura.transform);
+		}
 	}
 
 	@Override

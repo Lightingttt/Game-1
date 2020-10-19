@@ -24,32 +24,32 @@ public class UI {
 	private int spBarH = 15;
 	        
 	public void hpBar(Graphics g) {
-			
-			
-			g.setColor(Color.RED);
-			g.fill3DRect(hpBarX, hpBarY, hpBarW, hpBarH, false);
-			
-				
-			if (Aura.transform) {
-				
-				g.setColor(Color.ORANGE);
-				g.fill3DRect(hpBarX, hpBarY, (int)((Game.player.hp/Game.player.maxhp)*200), hpBarH, true);;
-				
-			}else{
-				
-				g.setColor(Color.GREEN);
-				g.fill3DRect(hpBarX, hpBarY, (int)((Game.player.hp/Game.player.maxhp)*200), hpBarH, true);
-			}
-			
 		
+		
+		g.setColor(Color.RED);
+		g.fill3DRect(hpBarX, hpBarY, hpBarW, hpBarH, false);
+		
+			
+		if (Aura.transform) {
+			
+			g.setColor(Color.ORANGE);
+			g.fill3DRect(hpBarX, hpBarY, (int)((Game.player.hp/Game.player.maxhp)*200), hpBarH, true);;
+			
+		}else{
+			
+			g.setColor(Color.GREEN);
+			g.fill3DRect(hpBarX, hpBarY, (int)((Game.player.hp/Game.player.maxhp)*200), hpBarH, true);
 		}
+		
+	
+	}
 	
 	public void mpBar(Graphics g) {
 		
-			g.setColor(Color.BLUE);
-			g.fill3DRect(mpBarX, mpBarY, mpBarW, mpBarH, false);
-			g.setColor(Color.CYAN);
-			g.fill3DRect(mpBarX, mpBarY, (int)((Game.player.mp/Game.player.maxmp)*200), mpBarH, true);
+		g.setColor(Color.BLUE);
+		g.fill3DRect(mpBarX, mpBarY, mpBarW, mpBarH, false);
+		g.setColor(Color.CYAN);
+		g.fill3DRect(mpBarX, mpBarY, (int)((Game.player.mp/Game.player.maxmp)*200), mpBarH, true);
 		
 	}
 	public void spBar(Graphics g) {

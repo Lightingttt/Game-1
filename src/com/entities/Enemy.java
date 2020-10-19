@@ -57,6 +57,7 @@ public class Enemy extends Entity{
 			damage();
 			
 		}
+		autoDestroy();
 	}
 	
 	public boolean isColidingWithPlayer () {
@@ -97,6 +98,22 @@ public class Enemy extends Entity{
 		}
 		
 		
+	}
+	
+	public void autoDestroy() {
+		int a = Game.rnd.nextInt(100);
+		
+		
+		if(a < 40) {
+			hp --;
+		}
+		if(hp <0) {
+			Game.enemies.remove(this);
+			Game.entities.remove(this);
+			
+			XPDrop xp = new XPDrop(this.getX(), this.getY(), width, height, null);
+			Game.entities.add(xp);
+		}
 	}
 	
 	public void render(Graphics g) {
