@@ -13,7 +13,7 @@ import com.world.Map;
 
 public class Enemy extends Entity{
 	
-	private double speed = 2;
+	private double speed = 1;
 	
 	public static int maskX = 20, maskY = 20, maskW = 30, maskH = 30;
 	
@@ -34,7 +34,7 @@ public class Enemy extends Entity{
 	public void tick() {
 		//System.out.println(speed);
 		DmgText dmg = new DmgText(0, 0, width, height, null);
-		if (this.isColidingWithPlayer() == false) {
+	//	if (this.isColidingWithPlayer() == false) {
 		if (x < Game.player.getX() && Map.isFree((int)(x+speed), this.getY()) && !isColinding((int)(x+speed), this.getY())){
 			
 			x += speed;
@@ -51,14 +51,14 @@ public class Enemy extends Entity{
 			
 			y -= speed;
 			
-		}
 		}else {
 			
 			damage();
-			
 		}
 		autoDestroy();
-	}
+		}
+
+	//}
 	
 	public boolean isColidingWithPlayer () {
 		
@@ -119,7 +119,7 @@ public class Enemy extends Entity{
 	public void render(Graphics g) {
 		super.render(g);
 		//g.setColor(Color.BLUE);
-		//1g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
+		//g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
 
 	}
 }

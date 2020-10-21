@@ -198,6 +198,24 @@ public class Player extends Entity{
 		}
 	}
 	
+	public void isColiddingXPDrop() {
+		for (int i = 0; i < Game.entities.size(); i++) {
+			Entity en = Game.entities.get(i);
+			if (en instanceof XPDrop) {
+				if (isColindingWith(this, en)) {
+					System.out.println("Colidiu" + power);
+					power++;
+					if (power > maxPower) {
+						power = maxPower;
+					}
+					Game.entities.remove(en);
+				}
+			}
+		}
+	
+		
+	}
+	
 	public void isColiddingFirePower() {
 		for (int i = 0; i < Game.entities.size(); i++) {
 			Entity en = Game.entities.get(i);
