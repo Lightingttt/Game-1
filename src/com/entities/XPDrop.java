@@ -13,21 +13,24 @@ public class XPDrop extends Entity{
 	
 	public Rectangle enemyRect;
 	
-	private double speed = 6;
+	private double speed = 7;
 
 
 	public XPDrop(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		
 		enemyRect = new Rectangle(this.getX(), this.getY(), Map.WIDTH, Map.HEIGHT);
+		this.setMask(20, 20, 20, 20);
 	}
 	
 	public void tick() {
 		//System.out.println(speed);
+		
 		DmgText dmg = new DmgText(0, 0, width, height, null);
+		if (this.isColidingWithPlayer() == false) {
 		if (x < Game.player.getX()){
 			
-			x += speed;
+			x = (int) (x + (speed * 0.1));
 			
 		}else if (x > Game.player.getX()){
 			
@@ -42,9 +45,10 @@ public class XPDrop extends Entity{
 			y -= speed;
 			
 		
+	}
 		}else {
 			
-			//Game.entities.remove(this);
+			Game.entities.remove(this);
 			
 		}
 	}

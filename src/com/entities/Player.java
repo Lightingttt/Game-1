@@ -64,7 +64,9 @@ public class Player extends Entity{
 			downPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
 		
+		this.setMask(x, y, width, height);
 	}
+	
 	
 	public void tick() {
 		//System.out.println(transform);
