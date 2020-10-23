@@ -31,7 +31,7 @@ public class DmgText extends Entity{
 	
 	public void render(Graphics g) {
 		g.setColor(new Color(255, 0, 0, t));
-		g.setFont(new Font("arial", Font.BOLD, 13));
+		g.setFont(new Font("arial", Font.BOLD, 15));
 		g.drawString(String.valueOf((int)dmgdff), this.getX() - Camera.x + 20 + rnd, this.getY() - Camera.y);
 		//Graphics2D g2 = (Graphics2D) g;
 		

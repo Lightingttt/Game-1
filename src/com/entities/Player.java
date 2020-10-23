@@ -24,9 +24,13 @@ public class Player extends Entity{
 	
 	public static int power = 1, maxPower = 5;
 	
+	public boolean mouseShoot = false;
+	
 	public static boolean transform = false;
 	
 	//private static Tile[] tiles;
+	
+	public int mx, my;
 	
 	public double maxhp = 100, hp = 100;
 	public double maxsp = 100, sp = 20;
@@ -114,6 +118,7 @@ public class Player extends Entity{
 		System.out.println(Map.isFree(x, (int)(y+speed)));
 		System.out.println(Map.isFree(x, (int)(y-speed)));*/
 		
+		shoot();
 		SandTile.slow(x, y);
 		LifeFlame.heal();
 		if (hp > maxhp) {
@@ -186,6 +191,27 @@ public class Player extends Entity{
 		}
 		
 	}*/
+	
+	public void shoot() {
+		if (mouseShoot) {
+			mouseShoot = false;
+			double angle = Math.toDegrees(Math.atan2(this.getY(), this.getX()));
+			System.out.print(angle);
+			int dx = 0;
+			int dy = 0;
+			if (dir == right_dir) {
+				dx = 1;
+			}else if (dir == left_dir) {
+				dx = -1;
+			}else if (dir == up_dir) {
+				dy = -1;
+			}else if (dir == down_dir) {
+				dy = 1;
+			}
+			
+		}
+		
+	}
 	
 	public void isColiddingLifeFLame() {
 		for (int i = 0; i < Game.entities.size(); i++) {

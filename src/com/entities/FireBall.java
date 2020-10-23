@@ -5,9 +5,15 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class FireBall extends Entity{
-
-	public FireBall(int x, int y, int width, int height, BufferedImage sprite) {
+	
+	public double dy, dx;
+	
+	
+	public FireBall(int x, int y, int width, int height, BufferedImage sprite, int dx, int dy) {
 		super(x, y, width, height, sprite);
+			this.dx = dx;
+			this.dy = dy;
+		
 	}
 	public void render(Graphics g) {
 		

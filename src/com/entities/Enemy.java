@@ -22,7 +22,9 @@ public class Enemy extends Entity{
 	private Graphics f;
 	
 	public int hp = 100;
-	public static double dmg = 2;
+	public static double dmg = 10;
+	
+	int frames = 0, maxFrames = 70;
 	
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -56,7 +58,7 @@ public class Enemy extends Entity{
 			
 			damage();
 		}
-		autoDestroy();
+		
 
 	}
 	
@@ -85,17 +87,24 @@ public class Enemy extends Entity{
 	}
 	
 	public void damage() {
-		if (Game.rnd.nextInt(100) <10){
-			
-			Game.player.hp-= dmg;
-			
-			DmgText dmg = new DmgText(Game.player.getX(), Game.player.getY(), width, height, null);
-			Game.dmgTexts.add(dmg);
-			
-			if (Game.player.hp < 0)
-				Game.player.hp = 0;
-			
+		
+			frames++;
+			if (frames == maxFrames) {
+				frames = 0;
+				if (Game.rnd.nextInt(100) <90){
+					System.out.println("ATACOU");
+					Game.player.hp-= dmg;
+					
+					DmgText dmg = new DmgText(Game.player.getX(), Game.player.getY(), width, height, null);
+					Game.dmgTexts.add(dmg);
+					
+					if (Game.player.hp < 0)
+						Game.player.hp = 0;
+					
+				
+			}
 		}
+	
 		
 		
 	}

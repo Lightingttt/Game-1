@@ -30,7 +30,7 @@ public class XPDrop extends Entity{
 		if (this.isColidingWithPlayer() == false) {
 		if (x < Game.player.getX()){
 			
-			x = (int) (x + (speed * 0.1));
+			x += speed;
 			
 		}else if (x > Game.player.getX()){
 			
