@@ -58,7 +58,7 @@ public class Enemy extends Entity{
 			
 			damage();
 		}
-		
+		autoDestroy();
 
 	}
 	
@@ -92,7 +92,7 @@ public class Enemy extends Entity{
 			if (frames == maxFrames) {
 				frames = 0;
 				if (Game.rnd.nextInt(100) <90){
-					System.out.println("ATACOU");
+					//System.out.println("ATACOU");
 					Game.player.hp-= dmg;
 					
 					DmgText dmg = new DmgText(Game.player.getX(), Game.player.getY(), width, height, null);
@@ -113,7 +113,7 @@ public class Enemy extends Entity{
 		int a = Game.rnd.nextInt(100);
 		
 		
-		if(a < 40) {
+		if(a < 20) {
 			hp --;
 		}
 		if(hp <0) {

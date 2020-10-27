@@ -34,19 +34,19 @@ public class Aura extends Entity{
 	public void tick() {
 		double speed = Game.player.speed;
 		moving = false;
-		if (Game.player.right && Map.isFree((int)(x+speed), y)) {
+		if (Game.player.right && Map.isFree((int)(x+speed), this.getY())) {
 			moving = true;
 			x+=speed;
 			
-		}else if (Game.player.left && Map.isFree((int)(x-speed), y)) {
+		}else if (Game.player.left && Map.isFree((int)(x-speed), this.getY())) {
 			moving = true;
 			x-=speed;
 		
-		}if (Game.player.up && Map.isFree(x, (int)(y-speed))) {
+		}if (Game.player.up && Map.isFree(this.getX(), (int)(y-speed))) {
 			moving = true;
 			y-=speed;
 		
-		}else if (Game.player.down && Map.isFree(x, (int)(y+speed))) {
+		}else if (Game.player.down && Map.isFree(this.getX(), (int)(y+speed))) {
 			moving = true;
 			y+=speed;
 		}

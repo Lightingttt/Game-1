@@ -30,7 +30,7 @@ public class Player extends Entity{
 	
 	//private static Tile[] tiles;
 	
-	public int mx, my;
+	public static int mx, my;
 	
 	public double maxhp = 100, hp = 100;
 	public double maxsp = 100, sp = 20;
@@ -68,11 +68,12 @@ public class Player extends Entity{
 			downPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
 		
-		this.setMask(x, y, width, height);
+		
 	}
 	
 	
 	public void tick() {
+		this.setMask(22, 17, 64, 64);
 		//System.out.println(transform);
 		/*int x1 = (int) ((x+speed) / Map.TILE_SIZE);
 		int y1 = (int) (y / Map.TILE_SIZE);
@@ -119,29 +120,29 @@ public class Player extends Entity{
 		System.out.println(Map.isFree(x, (int)(y-speed)));*/
 		
 		shoot();
-		SandTile.slow(x, y);
+		SandTile.slow(this.getX(), this.getY());
 		LifeFlame.heal();
 		if (hp > maxhp) {
 			hp = maxhp;
 		}
 		moving = false;
-		if (right && Map.isFree((int)(x+speed), y)) {
+		if (right && Map.isFree((int)(x+speed), this.getY())) {
 			moving = true;
 			dir = right_dir;
 			x+=speed;
 			
 			
-		}else if (left && Map.isFree((int)(x-speed), y)) {
+		}else if (left && Map.isFree((int)(x-speed), this.getY())) {
 			moving = true;
 			dir = left_dir;
 			x-=speed;
 		
-		}if (up && Map.isFree(x, (int)(y-speed))) {
+		}if (up && Map.isFree(this.getX(), (int)(y-speed))) {
 			dir = up_dir;
 			moving = true;
 			y-=speed;
 		
-		}else if (down && Map.isFree(x, (int)(y+speed))) {
+		}else if (down && Map.isFree(this.getX(), (int)(y+speed))) {
 			dir = down_dir;
 			moving = true;
 			y+=speed;
@@ -195,20 +196,15 @@ public class Player extends Entity{
 	public void shoot() {
 		if (mouseShoot) {
 			mouseShoot = false;
-			double angle = Math.toDegrees(Math.atan2(this.getY(), this.getX()));
-			System.out.print(angle);
-			int dx = 0;
-			int dy = 0;
-			if (dir == right_dir) {
-				dx = 1;
-			}else if (dir == left_dir) {
-				dx = -1;
-			}else if (dir == up_dir) {
-				dy = -1;
-			}else if (dir == down_dir) {
-				dy = 1;
-			}
+			double angle = 0;
+			angle = Math.atan2(my - (this.getY() + 32 - Camera.y), mx - (this.getX() + 32 - Camera.x));
 			
+			double dx = Math.cos(angle);
+			double dy = Math.sin(angle);
+			System.out.println(angle);
+			
+			FireBall fireball = new FireBall(this.getX(), this.getY(), 20, 20, null, dx, dy);
+			Game.fireballs.add(fireball);
 		}
 		
 	}
@@ -218,7 +214,7 @@ public class Player extends Entity{
 			Entity en = Game.entities.get(i);
 			if (en instanceof LifeFlame) {
 				if (isColindingWith(this, en)) {
-					System.out.println("Colidiu");
+					//System.out.println("Colidiu");
 					LifeFlame.healing = true;
 					Game.entities.remove(en);
 				}
@@ -231,7 +227,7 @@ public class Player extends Entity{
 			Entity en = Game.entities.get(i);
 			if (en instanceof XPDrop) {
 				if (isColindingWith(this, en)) {
-					System.out.println("Colidiu" + power);
+					//System.out.println("Colidiu" + power);
 					power++;
 					if (power > maxPower) {
 						power = maxPower;
@@ -249,7 +245,7 @@ public class Player extends Entity{
 			Entity en = Game.entities.get(i);
 			if (en instanceof FirePower) {
 				if (isColindingWith(this, en)) {
-					System.out.println("Colidiu" + power);
+					//System.ouln("Colidiu" + power);
 					power++;
 					if (power > maxPower) {
 						power = maxPower;
@@ -272,6 +268,7 @@ public class Player extends Entity{
 		}else if (dir == down_dir) {
 			g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		}
+		super.render(g);
 		//g.setColor(Color.BLUE);
 		//g.fillRect(this.getX()- Camera.x, this.getY() - Camera.y, Map.TILE_SIZE, Map.TILE_SIZE);
 	}

@@ -16,8 +16,8 @@ public class Entity {
 	public static BufferedImage WATER_ENEMY_EN = Game.spritesheet.getSprite(0, 8*64, 64, 64);
 	public static BufferedImage FIRE_RUNE_EN = Game.spritesheet.getSprite(0, 9*64, 64, 64);
 
-	protected int x, y, width, height;
-	
+	protected double x, y;
+	protected int width, height;
 	protected int maskX, maskY, maskW, maskH;
 	
 	private BufferedImage sprite;
@@ -44,11 +44,11 @@ public class Entity {
 	}
 	
 	public int getY() {
-		return this.y;
+		return (int)this.y;
 	}
 	
 	public int getX() {
-		return this.x;
+		return (int)this.x;
 	}
 	
 	public int getWidth() {
@@ -91,8 +91,8 @@ public class Entity {
 
 	public void render(Graphics g) {
 		g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
-		//g.setColor(Color.BLUE);
-		//g.fillRect(this.getX()- Camera.x, this.getY() - Camera.y, Map.TILE_SIZE, Map.TILE_SIZE);
+		g.setColor(Color.BLUE);
+		g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y,  maskW, maskH);
 	}
 
 

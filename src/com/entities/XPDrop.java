@@ -13,14 +13,16 @@ public class XPDrop extends Entity{
 	
 	public Rectangle enemyRect;
 	
-	private double speed = 7;
+	private double speed = 1, spdmult = 0.02;
 
 
 	public XPDrop(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		
 		enemyRect = new Rectangle(this.getX(), this.getY(), Map.WIDTH, Map.HEIGHT);
-		this.setMask(20, 20, 20, 20);
+		
+		this.setMask(this.getX(), this.getY(), 10, 10);
+		
 	}
 	
 	public void tick() {
@@ -28,24 +30,32 @@ public class XPDrop extends Entity{
 		
 		DmgText dmg = new DmgText(0, 0, width, height, null);
 		if (this.isColidingWithPlayer() == false) {
-		if (x < Game.player.getX()){
+		/*if (x < Game.player.getX()){
 			
-			x += speed;
+			x += speed * (spdmult += 0.02);
 			
 		}else if (x > Game.player.getX()){
 			
-			x -= speed;
+			x -= speed * (spdmult += 0.02);
 			
 		}if (y < Game.player.getY()){
 			
-			y += speed;
+			y += speed * (spdmult += 0.02);
 			
 		}else if (y > Game.player.getY()){
 			
-			y -= speed;
+			y -= speed * (spdmult += 0.02);
 			
 		
-	}
+	}*/
+			double angle = 0;
+			angle = Math.atan2(Game.player.getY() + 32 - (this.getY()), Game.player.getX() + 32 - (this.getX()));
+			
+			double dx = Math.cos(angle);
+			double dy = Math.sin(angle);
+			x += dx*speed * (spdmult += 0.02);
+			y += dy*speed * (spdmult += 0.02);
+			
 		}else {
 			
 			Game.entities.remove(this);
@@ -67,7 +77,7 @@ public class XPDrop extends Entity{
 		//g.setColor (Color.red);
 		//g.fillRect (this.getX()- Camera.x, this.getY()- Camera.y, width, height);
 		g.setColor (Color.blue);
-		g.fillOval (this.getX() + 20 - Camera.x, this.getY() + 20 - Camera.y, 20, 20);
+		g.fillOval (this.getX() - Camera.x, this.getY() - Camera.y, 10, 10);
 		
 	}
 	

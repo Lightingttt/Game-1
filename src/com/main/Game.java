@@ -18,12 +18,14 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import com.entities.Entity;
+import com.entities.FireBall;
 import com.entities.Player;
 import com.entities.Aura;
 import com.entities.DmgText;
 import com.entities.Enemy;
 import com.graphics.Spritesheet;
 import com.graphics.UI;
+import com.world.Camera;
 import com.world.Map;
 
 
@@ -45,6 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static List<Entity> entities;
 	public static List<Enemy> enemies;
 	public static List<DmgText> dmgTexts;
+	public static List<FireBall> fireballs;
 	public static Spritesheet spritesheet;	
 	
 	public static Map map;
@@ -64,6 +67,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
+		fireballs = new ArrayList<FireBall>();
 		ui = new UI();
 		spritesheet = new Spritesheet("/SpriteSheet.png");
 		player = new Player(0, 0, 64, 64, spritesheet.getSprite(0, 0, 64, 64));
@@ -112,6 +116,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				Entity e = dmgTexts.get(i);
 				e.tick();
 			}
+			for (int i = 0; i<fireballs.size(); i++) {
+				Entity e = fireballs.get(i);
+				e.tick();
+			}
 	}
 	
 	
@@ -133,6 +141,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			Entity e = dmgTexts.get(i);
 			e.render(g);
 		}
+		for (int i = 0; i<fireballs.size(); i++) {
+			Entity e = fireballs.get(i);
+			e.render(g);
+		}
+		
 		ui.render(g);
 		g.dispose();		
 		g = bs.getDrawGraphics();
@@ -224,6 +237,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}
 			System.out.println(Aura.transform);
 		}
+		if(e.getKeyCode() == KeyEvent.VK_R) {
+			
+			player.hp = 0;
+			
+		}
 	}
 
 	@Override
@@ -259,10 +277,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Game.player.mouseShoot = true;
+		player.mouseShoot = true;
 		player.mx = e.getX();
 		player.my = e.getY();
-		System.out.println (player.mx);
 	}
 
 	@Override
