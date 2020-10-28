@@ -31,9 +31,12 @@ public class Enemy extends Entity{
 		
 		enemyRect = new Rectangle(this.getX(), this.getY(), Map.WIDTH, Map.HEIGHT);
 		
+		
+		
 	}
 	
 	public void tick() {
+		this.setMask(22, 22, 30, 30);
 		//System.out.println(speed);
 		DmgText dmg = new DmgText(0, 0, width, height, null);
 		if (this.isColidingWithPlayer() == false) {
@@ -58,7 +61,7 @@ public class Enemy extends Entity{
 			
 			damage();
 		}
-		autoDestroy();
+		//autoDestroy();
 
 	}
 	

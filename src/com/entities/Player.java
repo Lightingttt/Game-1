@@ -68,12 +68,12 @@ public class Player extends Entity{
 			downPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
 		
-		
+		this.setMask(22, 17, 30, 40);
 	}
 	
 	
 	public void tick() {
-		this.setMask(22, 17, 64, 64);
+		
 		//System.out.println(transform);
 		/*int x1 = (int) ((x+speed) / Map.TILE_SIZE);
 		int y1 = (int) (y / Map.TILE_SIZE);

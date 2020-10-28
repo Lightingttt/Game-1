@@ -2,6 +2,7 @@ package com.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -90,8 +91,9 @@ public class Entity {
 		}
 
 	public void render(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(0, 0, 255, 100));
 		g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y,  maskW, maskH);
 	}
 
