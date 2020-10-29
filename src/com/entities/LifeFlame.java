@@ -20,7 +20,13 @@ public class LifeFlame extends Entity {
 		super(x, y, width, height, sprite);
 		
 		
+		
 				}
+	
+	public void tick() {
+		this.setMask(15, 20, 23, 25);
+	}
+	
 	public static void heal() { 
 		if(healing)
 			frames++;

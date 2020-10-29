@@ -36,7 +36,7 @@ public class Enemy extends Entity{
 	}
 	
 	public void tick() {
-		this.setMask(22, 22, 30, 30);
+		this.setMask(22, 22, 30, 25);
 		//System.out.println(speed);
 		DmgText dmg = new DmgText(0, 0, width, height, null);
 		if (this.isColidingWithPlayer() == false) {

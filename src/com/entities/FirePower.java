@@ -10,6 +10,8 @@ public class FirePower extends Entity{
 	public FirePower(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 	}
-	
+	public void tick() {
+		this.setMask(15, 20, 23, 25);
+	}
 
 }

@@ -68,7 +68,7 @@ public class Player extends Entity{
 			downPlayer [i] = Game.spritesheet.getSprite((i*64), 0, 64, 64);
 		}
 		
-		this.setMask(22, 17, 30, 40);
+		this.setMask(22, 17, 22, 35);
 	}
 	
 	
